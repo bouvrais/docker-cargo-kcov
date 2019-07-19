@@ -18,6 +18,7 @@ RUN apt-get install -y libcurl4-openssl-dev \
  && cd build \
  && cmake .. \
  && make \
- && make install
+ && make install \
+ && cargo install cargo-kcov
 
 WORKDIR /app

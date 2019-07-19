@@ -1,0 +1,8 @@
+services:
+  - docker
+
+script: 
+  - docker build . 
+  - docker build -t rust-cov .
+  - docker images
+  - docker tag rust-cov $DOCKER_USERNAME/rust-cov

@@ -1,4 +1,4 @@
-FROM rust:1.36
+FROM rust:1.35
 
 RUN apt-get update 
 RUN apt-get install -y libcurl4-openssl-dev \

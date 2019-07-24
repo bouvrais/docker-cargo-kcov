@@ -24,8 +24,9 @@ job:
         - echo "$docker_ci_pwd" | docker login -u "$docker_ci_user" --password-stdin
         - docker build -t bouvrais/rust-cov:$TRAVIS_COMMIT .
         - docker images
-        - docker push
+        - docker push bouvrais/rust-cov:$TRAVIS_COMMIT
     - stage: deploy
+        - echo "$docker_ci_pwd" | docker login -u "$docker_ci_user" --password-stdin
         - docker pull bouvrais/rust-cov:$TRAVIS_COMMIT
         - docker tag bouvrais/rust-cov:$TRAVIS_COMMIT bouvrais/rust-cov:`cat last`
         - docker tag bouvrais/rust-cov:$TRAVIS_COMMIT bouvrais/rust-cov:latest

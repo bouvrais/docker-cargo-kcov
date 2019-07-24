@@ -14,7 +14,7 @@ before_install:
   - ssh-add github_deploy_key_travis
 
 script: 
-  - echo "$docker-ci-pwd" | docker login -u "$docker-ci-user" --password-stdin
+  - echo "$docker_ci_pwd" | docker login -u "$docker_ci_user" --password-stdin
   - docker build . 
   - docker build -t rust-cov .
   - docker images

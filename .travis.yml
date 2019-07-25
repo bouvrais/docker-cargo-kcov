@@ -6,11 +6,11 @@ services:
 stages:
   - build
   - name: deploy
-    if: branch = master
+    if: branch =~ /^(\d+.\d+)$/
 
 jobs:
   include:
-    - stage: build
+    - stage: build # Build the image whenever a commit is pushed.
       before_install:
         - >-
           openssl aes-256-cbc 
@@ -27,7 +27,7 @@ jobs:
         - docker build -t bouvrais/rust-cov:$TRAVIS_COMMIT .
         - docker images
         - docker push bouvrais/rust-cov:$TRAVIS_COMMIT
-    - stage: deploy
+    - stage: deploy # Deploy to docker hub if we are building an official git TAG.
       script:
         - echo "$docker_ci_pwd" | docker login -u "$docker_ci_user" --password-stdin
         - docker pull bouvrais/rust-cov:$TRAVIS_COMMIT
